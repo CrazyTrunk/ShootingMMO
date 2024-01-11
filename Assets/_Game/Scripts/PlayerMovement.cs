@@ -22,4 +22,11 @@ public class PlayerMovement : MonoBehaviour
         anim.SetFloat("BlendH", Input.GetAxis("Horizontal"));
 
     }
+    private void Update()
+    {
+        if (Input.GetButtonDown("Jump"))
+        {
+            rb.AddForce(1200 * Time.deltaTime * Vector3.up, ForceMode.VelocityChange);
+        }
+    }
 }
