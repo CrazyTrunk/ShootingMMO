@@ -18,11 +18,6 @@ public class WeaponChange : MonoBehaviour
     [SerializeField] private GameObject weapon2;
     [SerializeField] private GameObject weapon3;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
     // Update is called once per frame
     void Update()
