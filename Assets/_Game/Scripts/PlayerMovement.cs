@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,7 +9,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float rotateSpeed= 100f;
     [SerializeField] private Rigidbody rb;
     [SerializeField] private Animator anim;
-
+    private bool canJump = true;
     private void FixedUpdate()
     {
         Vector3 movement = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")).normalized;
@@ -24,9 +25,18 @@ public class PlayerMovement : MonoBehaviour
     }
     private void Update()
     {
-        if (Input.GetButtonDown("Jump"))
+        if (Input.GetButtonDown("Jump") && canJump)
         {
+            canJump = false;
             rb.AddForce(1200 * Time.deltaTime * Vector3.up, ForceMode.VelocityChange);
+            StartCoroutine(JumpAgain());
         }
+    }
+
+    IEnumerator JumpAgain()
+    {
+        yield return new WaitForSeconds(1f);
+        canJump = true;
+
     }
 }
