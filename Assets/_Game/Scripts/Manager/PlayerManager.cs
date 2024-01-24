@@ -13,9 +13,9 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private RigBuilder rig;
 
     private GameObject camObject;
-    private Transform aimTarget;
+    //private Transform aimTarget;
     private CinemachineVirtualCamera cam;
-
+    private GameObject testObjectWeapons;
     private void Start()
     {
         camObject = GameObject.Find("PlayerCam");
@@ -31,24 +31,11 @@ public class PlayerManager : MonoBehaviour
         {
             playerMovement.enabled = false;
         }
-    }
-    //void SetLookAt()
-    //{
-    //    if (aimTarget != null)
-    //    {
-    //        for (int i = 0; i < aimObjects.Length; i++)
-    //        {
-    //            var target = aimObjects[i].data.sourceObjects;
-    //            target.SetTransform(0, aimTarget.transform);
-    //            aimObjects[i].data.sourceObjects = target;
-    //        }
-    //        rig.Build();
-    //    }
-    //}
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        testObjectWeapons = GameObject.Find("Weapon1pickup(Clone)");
+        if(testObjectWeapons == null)
+        {
+            var spawners = GameObject.Find("SpawnScript");
+            spawners.GetComponent<SpawnCharacters>().SpawnWeapons();
+        }
     }
 }
