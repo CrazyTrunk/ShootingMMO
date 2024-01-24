@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 6907586964233522452}
   - component: {fileID: 296522850313033030}
   - component: {fileID: -5109562993434181424}
+  - component: {fileID: -5991423227172695518}
   m_Layer: 0
   m_Name: Weapon1pickup
   m_TagString: Untagged
@@ -107,7 +108,8 @@ MonoBehaviour:
   Synchronization: 3
   OwnershipTransfer: 0
   observableSearch: 2
-  ObservedComponents: []
+  ObservedComponents:
+  - {fileID: -5109562993434181424}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -123,7 +125,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 8720072ae4d7e9c42b137210e7606b03, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.23
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -284,3 +286,22 @@ MonoBehaviour:
   m_SynchronizeRotation: 1
   m_SynchronizeScale: 0
   m_UseLocal: 1
+--- !u!114 &-5991423227172695518
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7201698882425647493}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 851296e3fd0e131449d479725a30574a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioPlayer: {fileID: 28985348247623873}
+  photonView: {fileID: 6526144356597701150}
+  rendererObj: {fileID: 9001709467847713000}
+  otherRenderChildGun: {fileID: 0}
+  colliderObj: {fileID: 2276306230968177778}
+  respawnTime: 5
+  weaponType: 0
