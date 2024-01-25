@@ -9559,6 +9559,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6321973926612228789}
   - component: {fileID: 4016509422314126704}
+  - component: {fileID: 4954469895606721435}
   m_Layer: 0
   m_Name: RL0N-25_low
   m_TagString: Untagged
@@ -9626,6 +9627,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48948dfe9d76b07488dacd46a7955fa1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &4954469895606721435
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6530864863174001534}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0
+  m_UseLocal: 1
 --- !u!1 &6567693777174117077
 GameObject:
   m_ObjectHideFlags: 0
@@ -10240,6 +10257,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7165034280577208272}
   - component: {fileID: 2312045335469095105}
+  - component: {fileID: 5243265755093043316}
   m_Layer: 0
   m_Name: Bio Integrity Gun
   m_TagString: Untagged
@@ -10282,6 +10300,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48948dfe9d76b07488dacd46a7955fa1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &5243265755093043316
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7157150184406942812}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0
+  m_UseLocal: 1
 --- !u!1 &7199151443791003478
 GameObject:
   m_ObjectHideFlags: 0
@@ -10512,6 +10546,7 @@ GameObject:
   - component: {fileID: 5473230223157366797}
   - component: {fileID: 3215021962203464149}
   - component: {fileID: 4584991771635936312}
+  - component: {fileID: 3040903915554142831}
   m_Layer: 0
   m_Name: Sci-Fi Gun
   m_TagString: Untagged
@@ -10599,6 +10634,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48948dfe9d76b07488dacd46a7955fa1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &3040903915554142831
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7406985330561111140}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0
+  m_UseLocal: 1
 --- !u!1 &7451479789754384340
 GameObject:
   m_ObjectHideFlags: 0
@@ -11873,7 +11924,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 80
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!136 &908865172966677650
 CapsuleCollider:
@@ -11910,8 +11961,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e2399bac4fe6e64ea55f8b5332b16ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 7
+  moveSpeed: 10
   rotateSpeed: 100
+  jumpForce: 10
   rb: {fileID: 7266883055853236737}
   anim: {fileID: 8653250204544083379}
 --- !u!114 &5627625306074730939
@@ -12015,6 +12067,7 @@ MonoBehaviour:
   - {fileID: 7406985330561111140}
   - {fileID: 6530864863174001534}
   - {fileID: 7157150184406942812}
+  photonView: {fileID: -5128884831829719060}
 --- !u!114 &-5128884831829719060
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12041,6 +12094,9 @@ MonoBehaviour:
   - {fileID: 459285931375671944}
   - {fileID: 2611882757762884120}
   - {fileID: 6326654924455105886}
+  - {fileID: 3040903915554142831}
+  - {fileID: 4954469895606721435}
+  - {fileID: 5243265755093043316}
   - {fileID: 1167515809406254368}
   - {fileID: 8668997463080944732}
   - {fileID: 7169266986299617525}

@@ -7,6 +7,8 @@ public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private float moveSpeed = 3.5f;
     [SerializeField] private float rotateSpeed= 100f;
+    [SerializeField] private float jumpForce = 10f;
+
     [SerializeField] private Rigidbody rb;
     [SerializeField] private Animator anim;
     private bool canJump = true;
@@ -25,10 +27,10 @@ public class PlayerMovement : MonoBehaviour
     }
     private void Update()
     {
-        if (Input.GetButtonDown("Jump") && canJump)
+        if (Input.GetKeyDown(KeyCode.Space) && canJump)
         {
             canJump = false;
-            rb.AddForce(1200 * Time.deltaTime * Vector3.up, ForceMode.VelocityChange);
+            rb.AddForce(jumpForce * Vector3.up, ForceMode.VelocityChange);
             StartCoroutine(JumpAgain());
         }
     }

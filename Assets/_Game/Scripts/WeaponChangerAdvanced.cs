@@ -1,5 +1,6 @@
 using Cinemachine;
 using Photon.Pun;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,15 +14,17 @@ public class WeaponChangerAdvanced : MonoBehaviour
     [SerializeField] private Transform[] leftTargets;
     [SerializeField] private Transform[] rightTargers;
     [SerializeField] private GameObject[] weapons;
+    [SerializeField] private PhotonView photonView;
 
 
     private int weaponNumber = 0;
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(1))
+        if (Input.GetMouseButtonDown(1) && photonView.IsMine)
         {
-            weaponNumber++;
+            //weaponNumber++;
+            photonView.RPC(nameof(ChangeWeapon), RpcTarget.AllBuffered);
             if (weaponNumber > weapons.Length - 1)
             {
                 weaponNumber = 0;
@@ -35,5 +38,22 @@ public class WeaponChangerAdvanced : MonoBehaviour
             rightHand.data.target = rightTargers[weaponNumber];
             rig.Build();
         }
+    }
+    [PunRPC]
+    public void ChangeWeapon()
+    {
+        weaponNumber++;
+        if (weaponNumber > weapons.Length - 1)
+        {
+            weaponNumber = 0;
+        }
+        for (int i = 0; i < weapons.Length; i++)
+        {
+            weapons[i].SetActive(false);
+        }
+        weapons[weaponNumber].SetActive(true);
+        leftHand.data.target = leftTargets[weaponNumber];
+        rightHand.data.target = rightTargers[weaponNumber];
+        rig.Build();
     }
 }
