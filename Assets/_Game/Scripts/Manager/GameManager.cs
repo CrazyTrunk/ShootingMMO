@@ -2,19 +2,36 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
+using UnityEngine.UI;
 public class GameManager : MonoBehaviourPunCallbacks
 {
+    [SerializeField] private InputField nickNamePlayer;
+    [SerializeField] private GameObject connecting;
+
+    private string setName = "";
     // Start is called before the first frame update
     void Start()
     {
-        PhotonNetwork.AutomaticallySyncScene = true;
-        PhotonNetwork.ConnectUsingSettings();
+        connecting.SetActive(false);
     }
 
-    // Update is called once per frame
-    void Update()
+    public void UpdateText()
     {
-        
+        setName = nickNamePlayer.text;
+        PhotonNetwork.LocalPlayer.NickName = setName;
+    }
+    public void EnterButton()
+    {
+        if (setName != null)
+        {
+            PhotonNetwork.AutomaticallySyncScene = true;
+            PhotonNetwork.ConnectUsingSettings();
+            connecting.SetActive(true);
+        }
+    }
+    public void ExitButton()
+    {
+        Application.Quit();
     }
     public override void OnConnectedToMaster()
     {
