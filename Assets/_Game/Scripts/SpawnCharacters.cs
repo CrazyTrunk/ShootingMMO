@@ -16,16 +16,10 @@ public class SpawnCharacters : MonoBehaviour
     {
         if (PhotonNetwork.IsConnected)
         {
-            StartCoroutine(SpawnPlayer());
-            //PhotonNetwork.Instantiate(character.name, spawnPoints[PhotonNetwork.CountOfPlayers -1].position, spawnPoints[PhotonNetwork.CountOfPlayers - 1].rotation);
+            PhotonNetwork.Instantiate(character.name, spawnPoints[PhotonNetwork.CurrentRoom.PlayerCount - 1].position, spawnPoints[PhotonNetwork.CurrentRoom.PlayerCount - 1].rotation);
         }
     }
-    private IEnumerator SpawnPlayer()
-    {
-        yield return new WaitForSeconds(2);
-        PhotonNetwork.Instantiate(character.name, spawnPoints[PhotonNetwork.CurrentRoom.PlayerCount - 1].position, spawnPoints[PhotonNetwork.CurrentRoom.PlayerCount - 1].rotation);
 
-    }
     public void SpawnWeapons()
     {
         for (int i = 0; i < weapons.Length; i++)
