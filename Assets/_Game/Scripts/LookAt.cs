@@ -14,7 +14,6 @@ public class LookAt : MonoBehaviour
 
     private void Start()
     {
-        Cursor.visible = false;
         nicknameText.text = PhotonNetwork.LocalPlayer.NickName;
     }
     void FixedUpdate()

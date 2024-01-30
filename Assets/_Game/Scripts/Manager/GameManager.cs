@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviourPunCallbacks
 {
     [SerializeField] private InputField nickNamePlayer;
@@ -42,20 +43,20 @@ public class GameManager : MonoBehaviourPunCallbacks
         Thông thường, bạn có thể thêm code trong hàm này để thông báo cho người chơi rằng họ đã kết nối thành công, hoặc để tự động tham gia vào một lobby hoặc tìm kiếm một phòng chơi.
          */
         Debug.Log("I'm connect to server");
-        PhotonNetwork.JoinRandomRoom();
+        SceneManager.LoadScene("Lobby");
     }
-    public override void OnJoinedRoom()
-    {
-        //khi game bắt đầu
-        PhotonNetwork.LoadLevel("Floor layout");
-    }
-    public override void OnJoinRandomFailed(short returnCode, string message)
-    {
-        /*
-         Được gọi khi việc thử tham gia vào một phòng ngẫu nhiên (thông qua hàm như PhotonNetwork.JoinRandomRoom()) thất bại.
-        returnCode và message cung cấp thông tin về lý do tại sao việc tham gia phòng thất bại, có thể là do không có phòng nào khả dụng hoặc do các điều kiện lọc không được đáp ứng.
-        Thường được sử dụng để xử lý các trường hợp thất bại như thông báo cho người chơi hoặc tự động tạo phòng mới.
-         */
-        PhotonNetwork.CreateRoom("Arena1");
-    }
+    //public override void OnJoinedRoom()
+    //{
+    //    //khi game bắt đầu
+    //    PhotonNetwork.LoadLevel("Floor layout");
+    //}
+    //public override void OnJoinRandomFailed(short returnCode, string message)
+    //{
+    //    /*
+    //     Được gọi khi việc thử tham gia vào một phòng ngẫu nhiên (thông qua hàm như PhotonNetwork.JoinRandomRoom()) thất bại.
+    //    returnCode và message cung cấp thông tin về lý do tại sao việc tham gia phòng thất bại, có thể là do không có phòng nào khả dụng hoặc do các điều kiện lọc không được đáp ứng.
+    //    Thường được sử dụng để xử lý các trường hợp thất bại như thông báo cho người chơi hoặc tự động tạo phòng mới.
+    //     */
+    //    PhotonNetwork.CreateRoom("Arena1");
+    //}
 }
