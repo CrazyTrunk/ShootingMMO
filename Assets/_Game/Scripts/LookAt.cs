@@ -10,12 +10,7 @@ public class LookAt : MonoBehaviour
     private Vector3 screenPos;
     // Update is called once per frame
     [SerializeField]private GameObject crosshair;
-    [SerializeField] private Text nicknameText;
 
-    private void Start()
-    {
-        nicknameText.text = PhotonNetwork.LocalPlayer.NickName;
-    }
     void FixedUpdate()
     {
         screenPos = Input.mousePosition;

@@ -11,9 +11,12 @@ public class DisplayColor : MonoBehaviour
     [SerializeField] private Color32[] colors;
     [SerializeField] private PhotonView photonView;
     [SerializeField] private Renderer rendererColor;
-
+     private GameObject namesObject;
     public int[] ViewIds { get => viewIds; set => viewIds = value; }
-
+    private void Start()
+    {
+        namesObject = GameObject.Find("NameBackground");
+    }
     public void ChooseColor()
     {
         photonView.RPC(nameof(AssignColor), RpcTarget.AllBuffered);
@@ -26,6 +29,7 @@ public class DisplayColor : MonoBehaviour
             if(photonView.ViewID == ViewIds[i])
             {
                 rendererColor.material.color = colors[i];
+                namesObject.GetComponent<NickName>().Names[i].text = photonView.Owner.NickName;
             }
         }
     }
