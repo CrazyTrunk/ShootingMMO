@@ -12069,6 +12069,11 @@ MonoBehaviour:
   - {fileID: 6530864863174001534}
   - {fileID: 7157150184406942812}
   photonView: {fileID: -5128884831829719060}
+  weaponIcons:
+  - {fileID: 21300000, guid: 6e7420a0944b2034e9377a246240ca5b, type: 3}
+  - {fileID: 21300000, guid: aa83efc859d5a7e41b6c0888c2c938fd, type: 3}
+  - {fileID: 21300000, guid: 59853b927d8f6ad479b93a1c93c419c9, type: 3}
+  ammoAmounts: 14000000c800000028000000
 --- !u!114 &-5128884831829719060
 MonoBehaviour:
   m_ObjectHideFlags: 0
