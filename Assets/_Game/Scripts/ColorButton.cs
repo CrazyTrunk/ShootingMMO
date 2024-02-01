@@ -8,7 +8,7 @@ public class ColorButton : MonoBehaviour
 {
     [SerializeField] private GameObject colorPanel;
     [SerializeField] private PhotonView buttonPhotonView;
-
+    [SerializeField] private TimeCounter timeObject;
     private GameObject[] players;
     private int myId;
     private PhotonView photonView;
@@ -43,6 +43,7 @@ public class ColorButton : MonoBehaviour
             players[i].GetComponent<DisplayColor>().ViewIds[buttonId] = myId;
             players[i].GetComponent<DisplayColor>().ChooseColor();
         }
+        timeObject.BeginTimer();
         this.transform.gameObject.SetActive(false);
     }
 

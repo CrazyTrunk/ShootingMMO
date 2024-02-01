@@ -29,7 +29,10 @@ public class DisplayColor : MonoBehaviour
             if(photonView.ViewID == ViewIds[i])
             {
                 rendererColor.material.color = colors[i];
+                namesObject.GetComponent<NickName>().Names[i].gameObject.SetActive(true);
+                namesObject.GetComponent<NickName>().HealthBars[i].gameObject.SetActive(true);
                 namesObject.GetComponent<NickName>().Names[i].text = photonView.Owner.NickName;
+
             }
         }
     }
