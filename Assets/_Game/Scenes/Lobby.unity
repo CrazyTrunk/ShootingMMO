@@ -617,12 +617,12 @@ GameObject:
   - component: {fileID: 496629310}
   - component: {fileID: 496629309}
   m_Layer: 5
-  m_Name: RoomNumber
+  m_Name: Connecting
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &496629308
 RectTransform:
   m_ObjectHideFlags: 0
@@ -675,7 +675,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: New Text
+  m_Text: Connecting...
 --- !u!222 &496629310
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -917,7 +917,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 087ac6b6ea0e3f846950f4d5b72be237, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  roomNumber: {fileID: 496629309}
+  roomNumber: {fileID: 496629307}
 --- !u!1 &589308848
 GameObject:
   m_ObjectHideFlags: 0

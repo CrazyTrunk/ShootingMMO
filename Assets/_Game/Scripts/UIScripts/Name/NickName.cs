@@ -5,10 +5,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class NickName : MonoBehaviour
+public class NickName : MonoBehaviourPunCallbacks
 {
     [SerializeField] private Text[] names;
     [SerializeField] private Image[] healthBars;
+    [SerializeField] private GameObject waitingPanel;
 
     public Text[] Names { get => names; set => names = value; }
     public Image[] HealthBars { get => healthBars; set => healthBars = value; }
@@ -30,5 +31,26 @@ public class NickName : MonoBehaviour
     {
         yield return new WaitForSeconds(1);
         PhotonNetwork.LoadLevel("Lobby");
+    }
+    public void ReturnToLobby()
+    {
+        waitingPanel.SetActive(false);
+        RoomExit();
+    }
+
+    private void RoomExit()
+    {
+        StartCoroutine(ToLobby());
+    }
+    IEnumerator ToLobby()
+    {
+        yield return new WaitForSeconds(0.1f);
+        Cursor.visible = true;
+        PhotonNetwork.LeaveRoom();
+    }
+    public override void OnLeftRoom()
+    {
+        PhotonNetwork.LoadLevel("Lobby");
+
     }
 }

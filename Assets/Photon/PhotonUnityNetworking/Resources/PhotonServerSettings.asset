@@ -48,6 +48,7 @@ MonoBehaviour:
   - AssignColor
   - Count
   - RemoveCurrentPlayer
+  - PlaySound
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

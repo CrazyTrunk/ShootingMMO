@@ -11,6 +11,9 @@ public class DisplayColor : MonoBehaviourPunCallbacks
     [SerializeField] private Color32[] colors;
     [SerializeField] private PhotonView photonViewObj;
     [SerializeField] private Renderer rendererColor;
+    [SerializeField] private AudioClip[] gunshotSounds;
+    [SerializeField] private AudioSource audioSource;
+
     private GameObject namesObject;
     private GameObject wairForPlayers;
 
@@ -31,8 +34,23 @@ public class DisplayColor : MonoBehaviourPunCallbacks
     {
         StartCoroutine(GetReadyToleave());
     }
+    public void PlayGunShot(string name, int weaponNumber)
+    {
+        photonViewObj.RPC(nameof(PlaySound), RpcTarget.All,name, weaponNumber);
+    }
+    [PunRPC]
 
-
+    private void PlaySound(string name, int weaponNumber)
+    {
+        for (int i = 0; i < namesObject.GetComponent<NickName>().Names.Length; i++)
+        {
+            if (name == namesObject.GetComponent<NickName>().Names[i].text)
+            {
+                audioSource.clip = gunshotSounds[weaponNumber];
+                audioSource.Play();
+            }
+        }
+    }
     private void RemoveData()
     {
         photonViewObj.RPC(nameof(RemoveCurrentPlayer), RpcTarget.AllBuffered);

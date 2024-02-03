@@ -24,10 +24,23 @@ public class WeaponChangerAdvanced : MonoBehaviour
     private Image weaponIcon;
     private Text ammoAmountText;
 
+    [Header("Muzzle Flash")]
+    [SerializeField] private GameObject[] muzzleFlashes;
+    [SerializeField] private DisplayColor displayColor;
+
     private int weaponNumber = 0;
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetMouseButtonDown(0))
+        {
+            if (photonView.IsMine)
+            {
+                displayColor.PlayGunShot(photonView.Owner.NickName, weaponNumber);
+                muzzleFlashes[weaponNumber].SetActive(true);
+                StartCoroutine(MuzzleOff());
+            }
+        }
         if (Input.GetMouseButtonDown(1) && photonView.IsMine)
         {
             //weaponNumber++;
@@ -53,6 +66,13 @@ public class WeaponChangerAdvanced : MonoBehaviour
             rig.Build();
         }
     }
+
+    IEnumerator MuzzleOff()
+    {
+        yield return new  WaitForSeconds(0.03f);
+        muzzleFlashes[weaponNumber].SetActive(false);
+    }
+
     [PunRPC]
     public void ChangeWeapon()
     {

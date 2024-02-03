@@ -9,11 +9,15 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     TypedLobby killCount = new TypedLobby(Lobby.KILL_COUNT, LobbyType.Default);
     TypedLobby teamBattle = new TypedLobby(Lobby.TEAM_BATTLE, LobbyType.Default);
     TypedLobby noRespawn = new TypedLobby(Lobby.NO_RESPAWN, LobbyType.Default);
-    [SerializeField] private Text roomNumber;
+    [SerializeField] private GameObject roomNumber;
     private string levelName = "";
-
+    private void Start()
+    {
+        roomNumber.SetActive(false);
+    }
     public void BackToMenu()
     {
+        PhotonNetwork.Disconnect();
         SceneManager.LoadScene("MainMenu");
     }
     public void JoinGameKillCount()
@@ -51,7 +55,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     }
     public override void OnJoinedRoom()
     {
-        roomNumber.text = PhotonNetwork.CurrentRoom.Name;
+        roomNumber.SetActive(true);
         PhotonNetwork.LoadLevel(levelName);
     }
 }
