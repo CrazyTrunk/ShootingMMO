@@ -37,8 +37,9 @@ public class WeaponChangerAdvanced : MonoBehaviour
             if (photonView.IsMine)
             {
                 displayColor.PlayGunShot(photonView.Owner.NickName, weaponNumber);
-                muzzleFlashes[weaponNumber].SetActive(true);
-                StartCoroutine(MuzzleOff());
+                photonView.RPC(nameof(GunMuzzleFlash), RpcTarget.All);   
+                //muzzleFlashes[weaponNumber].SetActive(true);
+                //StartCoroutine(MuzzleOff());
             }
         }
         if (Input.GetMouseButtonDown(1) && photonView.IsMine)
@@ -66,10 +67,24 @@ public class WeaponChangerAdvanced : MonoBehaviour
             rig.Build();
         }
     }
+    [PunRPC]
+
+    private void GunMuzzleFlash()
+    {
+        muzzleFlashes[weaponNumber].SetActive(true);
+        StartCoroutine(MuzzleOff());
+    }
 
     IEnumerator MuzzleOff()
     {
         yield return new  WaitForSeconds(0.03f);
+        photonView.RPC(nameof(MuzzleFlashOff), RpcTarget.All);
+
+    }
+    [PunRPC]
+
+    private void MuzzleFlashOff()
+    {
         muzzleFlashes[weaponNumber].SetActive(false);
     }
 
