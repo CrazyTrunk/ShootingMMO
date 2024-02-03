@@ -4,36 +4,85 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DisplayColor : MonoBehaviour
+public class DisplayColor : MonoBehaviourPunCallbacks
 {
     [SerializeField] private int[] buttonNumbers;
     [SerializeField] private int[] viewIds;
     [SerializeField] private Color32[] colors;
-    [SerializeField] private PhotonView photonView;
+    [SerializeField] private PhotonView photonViewObj;
     [SerializeField] private Renderer rendererColor;
-     private GameObject namesObject;
+    private GameObject namesObject;
+    private GameObject wairForPlayers;
+
     public int[] ViewIds { get => viewIds; set => viewIds = value; }
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (photonViewObj.IsMine && !wairForPlayers.activeInHierarchy)
+            {
+                RemoveData();
+                RoomExit();
+            }
+        }
+    }
+
+    private void RoomExit()
+    {
+        StartCoroutine(GetReadyToleave());
+    }
+
+
+    private void RemoveData()
+    {
+        photonViewObj.RPC(nameof(RemoveCurrentPlayer), RpcTarget.AllBuffered);
+    }
+
+
     private void Start()
     {
         namesObject = GameObject.Find("NameBackground");
+        wairForPlayers = GameObject.Find("WaitingPanel");
     }
     public void ChooseColor()
     {
-        photonView.RPC(nameof(AssignColor), RpcTarget.AllBuffered);
+        photonViewObj.RPC(nameof(AssignColor), RpcTarget.AllBuffered);
     }
     [PunRPC]
     public void AssignColor()
     {
-        for(int i = 0; i <ViewIds.Length; i++)
+        for (int i = 0; i < ViewIds.Length; i++)
         {
-            if(photonView.ViewID == ViewIds[i])
+            if (photonViewObj.ViewID == ViewIds[i])
             {
                 rendererColor.material.color = colors[i];
                 namesObject.GetComponent<NickName>().Names[i].gameObject.SetActive(true);
                 namesObject.GetComponent<NickName>().HealthBars[i].gameObject.SetActive(true);
-                namesObject.GetComponent<NickName>().Names[i].text = photonView.Owner.NickName;
+                namesObject.GetComponent<NickName>().Names[i].text = photonViewObj.Owner.NickName;
 
             }
         }
     }
+    [PunRPC]
+    private void RemoveCurrentPlayer()
+    {
+        for (int i = 0; i < namesObject.GetComponent<NickName>().Names.Length; i++)
+        {
+            if(photonViewObj.Owner.NickName == namesObject.GetComponent<NickName>().Names[i].text)
+            {
+                namesObject.GetComponent<NickName>().Names[i].gameObject.SetActive(false);
+                namesObject.GetComponent<NickName>().HealthBars[i].gameObject.SetActive(false);
+
+            }
+        }
+
+    }
+    IEnumerator GetReadyToleave()
+    {
+        yield return new WaitForSeconds(1);
+        namesObject.GetComponent<NickName>().Leaving();
+        Cursor.visible = true;
+        PhotonNetwork.LeaveRoom();
+    }
+
 }

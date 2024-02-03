@@ -1,3 +1,5 @@
+using Photon.Pun;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -18,5 +20,15 @@ public class NickName : MonoBehaviour
             names[i].gameObject.SetActive(false);
             HealthBars[i].gameObject.SetActive(false);
         }
+    }
+    public void Leaving()
+    {
+        StartCoroutine(BacktoLobby());
+    }
+
+    IEnumerator BacktoLobby()
+    {
+        yield return new WaitForSeconds(1);
+        PhotonNetwork.LoadLevel("Lobby");
     }
 }

@@ -12207,7 +12207,7 @@ MonoBehaviour:
     rgba: 11801213
   - serializedVersion: 2
     rgba: 4079176
-  photonView: {fileID: -5128884831829719060}
+  photonViewObj: {fileID: -5128884831829719060}
   rendererColor: {fileID: 5189703126621935715}
 --- !u!1 &8645352900667877907
 GameObject:
