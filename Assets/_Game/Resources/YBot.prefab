@@ -1005,7 +1005,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &4975092951266503667
 Transform:
   m_ObjectHideFlags: 0
@@ -2923,7 +2923,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &4171075228429472372
 Transform:
   m_ObjectHideFlags: 0
@@ -3405,7 +3405,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &9156046277653388170
 Transform:
   m_ObjectHideFlags: 0
@@ -3704,7 +3704,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &8001093778463759330
 Transform:
   m_ObjectHideFlags: 0
@@ -3836,7 +3836,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &4570769882330662527
 Transform:
   m_ObjectHideFlags: 0
@@ -12619,7 +12619,7 @@ MonoBehaviour:
   - {fileID: 7274352796491613381}
   - {fileID: 5705230185728502630}
   - {fileID: 4632029960656565649}
-  displayColor: {fileID: 0}
+  displayColor: {fileID: 3139584295112957396}
 --- !u!114 &-5128884831829719060
 MonoBehaviour:
   m_ObjectHideFlags: 0
