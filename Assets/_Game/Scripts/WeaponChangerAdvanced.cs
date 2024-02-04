@@ -28,6 +28,12 @@ public class WeaponChangerAdvanced : MonoBehaviour
     [SerializeField] private GameObject[] muzzleFlashes;
     [SerializeField] private DisplayColor displayColor;
 
+    [Header("Shooting")]
+    private string shooterName;
+    private string gotShotName;
+    [SerializeField] private float[] damageAmounts;
+
+
     private int weaponNumber = 0;
     // Update is called once per frame
     void Update()
@@ -37,9 +43,8 @@ public class WeaponChangerAdvanced : MonoBehaviour
             if (photonView.IsMine)
             {
                 displayColor.PlayGunShot(photonView.Owner.NickName, weaponNumber);
-                photonView.RPC(nameof(GunMuzzleFlash), RpcTarget.All);   
-                //muzzleFlashes[weaponNumber].SetActive(true);
-                //StartCoroutine(MuzzleOff());
+                photonView.RPC(nameof(GunMuzzleFlash), RpcTarget.All);
+                Shoot();
             }
         }
         if (Input.GetMouseButtonDown(1) && photonView.IsMine)
@@ -67,6 +72,26 @@ public class WeaponChangerAdvanced : MonoBehaviour
             rig.Build();
         }
     }
+
+    private void Shoot()
+    {
+        RaycastHit hit;
+        //mouse pos to shoot
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        //Ignore sell raycast
+        gameObject.layer = LayerMask.NameToLayer("Ignore Raycast");
+        if (Physics.Raycast(ray, out hit, 500))
+        {
+            if (hit.transform.gameObject.GetComponent<PhotonView>() != null)
+            {
+                gotShotName = hit.transform.gameObject.GetComponent<PhotonView>().Owner.NickName;
+            }
+            shooterName = photonView.Owner.NickName;
+            Debug.Log($"{gotShotName} got shot by {shooterName}");
+        }
+        gameObject.layer = LayerMask.NameToLayer("Default");
+    }
+
     [PunRPC]
 
     private void GunMuzzleFlash()
@@ -77,7 +102,7 @@ public class WeaponChangerAdvanced : MonoBehaviour
 
     IEnumerator MuzzleOff()
     {
-        yield return new  WaitForSeconds(0.03f);
+        yield return new WaitForSeconds(0.03f);
         photonView.RPC(nameof(MuzzleFlashOff), RpcTarget.All);
 
     }

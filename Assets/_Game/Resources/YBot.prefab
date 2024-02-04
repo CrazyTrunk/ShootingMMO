@@ -12620,6 +12620,10 @@ MonoBehaviour:
   - {fileID: 5705230185728502630}
   - {fileID: 4632029960656565649}
   displayColor: {fileID: 3139584295112957396}
+  damageAmounts:
+  - 0.1
+  - 0.3
+  - 0.5
 --- !u!114 &-5128884831829719060
 MonoBehaviour:
   m_ObjectHideFlags: 0
