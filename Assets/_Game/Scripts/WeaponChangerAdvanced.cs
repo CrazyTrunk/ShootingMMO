@@ -85,6 +85,9 @@ public class WeaponChangerAdvanced : MonoBehaviour
             if (hit.transform.gameObject.GetComponent<PhotonView>() != null)
             {
                 gotShotName = hit.transform.gameObject.GetComponent<PhotonView>().Owner.NickName;
+            }
+            if (hit.transform.gameObject.GetComponent<DisplayColor>() != null)
+            {
                 hit.transform.gameObject.GetComponent<DisplayColor>().DamageDeal(hit.transform.gameObject.GetComponent<PhotonView>().Owner.NickName, damageAmounts[weaponNumber]);
             }
             shooterName = photonView.Owner.NickName;

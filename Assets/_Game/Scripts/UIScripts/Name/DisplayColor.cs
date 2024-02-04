@@ -111,7 +111,7 @@ public class DisplayColor : MonoBehaviourPunCallbacks
         {
             if (name == namesObject.GetComponent<NickName>().Names[i].text)
             {
-                namesObject.GetComponent<NickName>().HealthBars[i].GetComponent<Image>().fillAmount -= dmgAmount / PhotonNetwork.CurrentRoom.PlayerCount;
+                namesObject.GetComponent<NickName>().HealthBars[i].GetComponent<Image>().fillAmount -= dmgAmount;
 
             }
         }
