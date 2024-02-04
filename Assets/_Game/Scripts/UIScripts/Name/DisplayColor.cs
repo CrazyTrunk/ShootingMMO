@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class DisplayColor : MonoBehaviourPunCallbacks
 {
@@ -36,7 +37,7 @@ public class DisplayColor : MonoBehaviourPunCallbacks
     }
     public void PlayGunShot(string name, int weaponNumber)
     {
-        photonViewObj.RPC(nameof(PlaySound), RpcTarget.All,name, weaponNumber);
+        photonViewObj.RPC(nameof(PlaySound), RpcTarget.All, name, weaponNumber);
     }
     [PunRPC]
 
@@ -51,6 +52,12 @@ public class DisplayColor : MonoBehaviourPunCallbacks
             }
         }
     }
+    public void DamageDeal(string name, float damageAmt)
+    {
+        photonViewObj.RPC(nameof(DealDamage), RpcTarget.AllBuffered, name, damageAmt);
+    }
+
+
     private void RemoveData()
     {
         photonViewObj.RPC(nameof(RemoveCurrentPlayer), RpcTarget.AllBuffered);
@@ -86,7 +93,7 @@ public class DisplayColor : MonoBehaviourPunCallbacks
     {
         for (int i = 0; i < namesObject.GetComponent<NickName>().Names.Length; i++)
         {
-            if(photonViewObj.Owner.NickName == namesObject.GetComponent<NickName>().Names[i].text)
+            if (photonViewObj.Owner.NickName == namesObject.GetComponent<NickName>().Names[i].text)
             {
                 namesObject.GetComponent<NickName>().Names[i].gameObject.SetActive(false);
                 namesObject.GetComponent<NickName>().HealthBars[i].gameObject.SetActive(false);
@@ -94,6 +101,20 @@ public class DisplayColor : MonoBehaviourPunCallbacks
             }
         }
 
+    }
+
+    [PunRPC]
+
+    private void DealDamage(string name, float dmgAmount)
+    {
+        for (int i = 0; i < namesObject.GetComponent<NickName>().Names.Length; i++)
+        {
+            if (name == namesObject.GetComponent<NickName>().Names[i].text)
+            {
+                namesObject.GetComponent<NickName>().HealthBars[i].GetComponent<Image>().fillAmount -= dmgAmount / PhotonNetwork.CurrentRoom.PlayerCount;
+
+            }
+        }
     }
     IEnumerator GetReadyToleave()
     {
