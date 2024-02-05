@@ -1,4 +1,5 @@
 using Photon.Pun;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,7 +11,12 @@ public class CheckingPlayers : MonoBehaviour
     [SerializeField] private Text currentPlayers;
     [SerializeField] private GameObject enterButton;
     // Update is called once per frame
-    void Update()
+    private void Start()
+    {
+        InvokeRepeating(nameof(CheckPlayerCount),2,2);
+    }
+
+    private void CheckPlayerCount()
     {
         if (PhotonNetwork.CurrentRoom.PlayerCount == maxPlayersInRoom)
         {
@@ -18,6 +24,11 @@ public class CheckingPlayers : MonoBehaviour
             PhotonNetwork.CurrentRoom.IsOpen = false;
             enterButton.SetActive(true);
         }
+    }
+
+    void Update()
+    {
+
         if (!enterButton.activeInHierarchy)
         {
             currentPlayers.text = $"{PhotonNetwork.CurrentRoom.PlayerCount} / {maxPlayersInRoom}";
