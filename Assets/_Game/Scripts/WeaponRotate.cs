@@ -1,3 +1,4 @@
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,9 +6,11 @@ using UnityEngine;
 public class WeaponRotate : MonoBehaviour
 {
     [SerializeField] private float speed = 10f;
+    [SerializeField] private PhotonView photonView;
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        transform.Rotate(0, speed * Time.deltaTime, 0);
+        if (photonView.IsMine)
+        transform.Rotate(0, speed * Time.fixedDeltaTime, 0);
     }
 }

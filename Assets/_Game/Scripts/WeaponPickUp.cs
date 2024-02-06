@@ -15,7 +15,7 @@ public class WeaponPickUp : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag(Tag.PLAYER))
+        if (other.CompareTag(Tag.PLAYER) && photonView.IsMine)
         {
             photonView.RPC(nameof(PlayPickupAudio), RpcTarget.All);
             photonView.RPC(nameof(TurnOffObject), RpcTarget.All);

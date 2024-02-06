@@ -2524,6 +2524,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 50
+  photonView: {fileID: 1308158294366627884}
 --- !u!114 &-6978313111087008713
 MonoBehaviour:
   m_ObjectHideFlags: 0

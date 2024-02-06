@@ -32,7 +32,7 @@ public class PlayerManager : MonoBehaviour
             playerMovement.enabled = false;
         }
         testObjectWeapons = GameObject.Find("Weapon1pickup(Clone)");
-        if(testObjectWeapons == null)
+        if(testObjectWeapons == null && PhotonNetwork.IsMasterClient)
         {
             var spawners = GameObject.Find("SpawnScript");
             spawners.GetComponent<SpawnCharacters>().SpawnWeapons();
