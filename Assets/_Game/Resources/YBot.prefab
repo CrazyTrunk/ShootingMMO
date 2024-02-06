@@ -12727,6 +12727,12 @@ MonoBehaviour:
   - Type: 1
     SynchronizeType: 2
     Name: BlendH
+  - Type: 4
+    SynchronizeType: 0
+    Name: Hit
+  - Type: 4
+    SynchronizeType: 0
+    Name: Dead
   m_SynchronizeLayers:
   - SynchronizeType: 0
     LayerIndex: 0
@@ -12764,6 +12770,9 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 733a0ff7727334749a0381b7092162b3, type: 3}
   - {fileID: 8300000, guid: 56f5b6fa20679894d8658d743a03e1e4, type: 3}
   audioSource: {fileID: 7979797766435799462}
+  anim: {fileID: 8653250204544083379}
+  playerMovement: {fileID: 1922687267968567116}
+  weaponChangerAdvanced: {fileID: 3267407410618163194}
 --- !u!82 &7979797766435799462
 AudioSource:
   m_ObjectHideFlags: 0

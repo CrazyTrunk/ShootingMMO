@@ -15,6 +15,12 @@ public class DisplayColor : MonoBehaviourPunCallbacks
     [SerializeField] private AudioClip[] gunshotSounds;
     [SerializeField] private AudioSource audioSource;
 
+    [Header("Animator")]
+    [SerializeField] private Animator anim;
+    [SerializeField] private PlayerMovement playerMovement;
+    [SerializeField] private WeaponChangerAdvanced weaponChangerAdvanced;
+
+
     private GameObject namesObject;
     private GameObject wairForPlayers;
 
@@ -29,6 +35,16 @@ public class DisplayColor : MonoBehaviourPunCallbacks
                 RoomExit();
             }
         }
+        if (anim.GetBool("Hit"))
+        {
+            StartCoroutine(BackToIdle());
+        }
+    }
+
+    IEnumerator BackToIdle()
+    {
+        yield return new WaitForSeconds(0.05f);
+        anim.SetBool("Hit", false);
     }
 
     private void RoomExit()
@@ -111,7 +127,18 @@ public class DisplayColor : MonoBehaviourPunCallbacks
         {
             if (name == namesObject.GetComponent<NickName>().Names[i].text)
             {
-                namesObject.GetComponent<NickName>().HealthBars[i].GetComponent<Image>().fillAmount -= dmgAmount;
+                if (namesObject.GetComponent<NickName>().HealthBars[i].GetComponent<Image>().fillAmount > 0.1f)
+                {
+                    anim.SetBool("Hit", true);
+                    namesObject.GetComponent<NickName>().HealthBars[i].GetComponent<Image>().fillAmount -= dmgAmount;
+                }
+                else
+                {
+                    namesObject.GetComponent<NickName>().HealthBars[i].GetComponent<Image>().fillAmount = 0;
+                    anim.SetBool("Dead", true);
+                    playerMovement.IsDead = true;
+                    weaponChangerAdvanced.IsDead = true;
+                }
 
             }
         }
@@ -123,5 +150,4 @@ public class DisplayColor : MonoBehaviourPunCallbacks
         Cursor.visible = true;
         PhotonNetwork.LeaveRoom();
     }
-
 }

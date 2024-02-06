@@ -34,11 +34,16 @@ public class WeaponChangerAdvanced : MonoBehaviour
     [SerializeField] private float[] damageAmounts;
 
 
+    private bool isDead = false;
+
     private int weaponNumber = 0;
+
+    public bool IsDead { get => isDead; set => isDead = value; }
+
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && !IsDead)
         {
             if (photonView.IsMine)
             {
@@ -47,7 +52,7 @@ public class WeaponChangerAdvanced : MonoBehaviour
                 Shoot();
             }
         }
-        if (Input.GetMouseButtonDown(1) && photonView.IsMine)
+        if (Input.GetMouseButtonDown(1) && photonView.IsMine && !IsDead)
         {
             //weaponNumber++;
             weaponIcon = GameObject.Find("WeaponUI").GetComponent<Image>();
@@ -134,4 +139,6 @@ public class WeaponChangerAdvanced : MonoBehaviour
         rightHand.data.target = rightTargers[weaponNumber];
         rig.Build();
     }
+
+
 }

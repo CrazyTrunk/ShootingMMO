@@ -12,6 +12,10 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Rigidbody rb;
     [SerializeField] private Animator anim;
     private bool canJump = true;
+    private bool isDead = false;
+
+    public bool IsDead { get => isDead; set => isDead = value; }
+
     private void FixedUpdate()
     {
         Vector3 movement = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")).normalized;
@@ -27,12 +31,16 @@ public class PlayerMovement : MonoBehaviour
     }
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && canJump)
+        if (!IsDead)
         {
-            canJump = false;
-            rb.AddForce(jumpForce * Vector3.up, ForceMode.VelocityChange);
-            StartCoroutine(JumpAgain());
+            if (Input.GetKeyDown(KeyCode.Space) && canJump)
+            {
+                canJump = false;
+                rb.AddForce(jumpForce * Vector3.up, ForceMode.VelocityChange);
+                StartCoroutine(JumpAgain());
+            }
         }
+       
     }
 
     IEnumerator JumpAgain()
