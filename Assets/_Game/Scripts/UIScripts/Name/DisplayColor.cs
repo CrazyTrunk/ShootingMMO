@@ -92,6 +92,27 @@ public class DisplayColor : MonoBehaviourPunCallbacks
     {
         photonViewObj.RPC(nameof(AssignColor), RpcTarget.AllBuffered);
     }
+    public void Respawn(string name)
+    {
+        photonViewObj.RPC(nameof(ResetForReplay),RpcTarget.AllBuffered, name);
+    }
+
+    private void ResetForReplay(string name)
+    {
+        for(int i = 0;i < namesObject.GetComponent<NickName>().Names.Length;i++)
+        {
+            if(name == namesObject.GetComponent<NickName>().Names[i].text)
+            {
+                anim.SetBool("Dead", false);
+                playerMovement.IsDead = false;
+                weaponChangerAdvanced.IsDead = false;
+                aimLookAt.IsDead = false;
+                gameObject.layer = LayerMask.NameToLayer("Default");
+                namesObject.GetComponent<NickName>().HealthBars[i].GetComponent<Image>().fillAmount = 1;
+            }
+        }
+    }
+
     [PunRPC]
     public void AssignColor()
     {
@@ -143,6 +164,7 @@ public class DisplayColor : MonoBehaviourPunCallbacks
                     weaponChangerAdvanced.IsDead = true;
                     aimLookAt.IsDead = true;
                     namesObject.GetComponent<NickName>().RunMessage(shooterName, name);
+                    gameObject.layer = LayerMask.NameToLayer("Ignore Raycast");
                 }
 
             }

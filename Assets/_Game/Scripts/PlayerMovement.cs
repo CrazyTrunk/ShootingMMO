@@ -1,3 +1,4 @@
+using Photon.Pun;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -13,9 +14,17 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Animator anim;
     private bool canJump = true;
     private bool isDead = false;
+    [Header("Spawn")]
+    private Vector3 startPos;
+    private bool isRespawned = false;
+    [SerializeField] private DisplayColor displayColor;
+    [SerializeField] private PhotonView photonViewObj;
 
     public bool IsDead { get => isDead; set => isDead = value; }
-
+    private void Start()
+    {
+        startPos = transform.position;
+    }
     private void FixedUpdate()
     {
         Vector3 movement = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")).normalized;
@@ -31,7 +40,7 @@ public class PlayerMovement : MonoBehaviour
     }
     private void Update()
     {
-        if (!IsDead)
+        if (!isDead)
         {
             if (Input.GetKeyDown(KeyCode.Space) && canJump)
             {
@@ -40,7 +49,20 @@ public class PlayerMovement : MonoBehaviour
                 StartCoroutine(JumpAgain());
             }
         }
-       
+        if(isDead && !isRespawned)
+        {
+            isRespawned = true;
+            StartCoroutine(RespawnWaitTime());
+        }
+    }
+
+    IEnumerator RespawnWaitTime()
+    {
+        yield return new WaitForSeconds(3);
+        isDead = false;
+        isRespawned = false;
+        transform.position = startPos;
+        displayColor.Respawn(photonViewObj.Owner.NickName);
     }
 
     IEnumerator JumpAgain()

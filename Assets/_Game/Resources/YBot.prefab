@@ -12508,6 +12508,8 @@ MonoBehaviour:
   jumpForce: 10
   rb: {fileID: 7266883055853236737}
   anim: {fileID: 8653250204544083379}
+  displayColor: {fileID: 3139584295112957396}
+  photonViewObj: {fileID: -5128884831829719060}
 --- !u!114 &5627625306074730939
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12728,10 +12730,10 @@ MonoBehaviour:
     SynchronizeType: 2
     Name: BlendH
   - Type: 4
-    SynchronizeType: 0
+    SynchronizeType: 2
     Name: Hit
   - Type: 4
-    SynchronizeType: 0
+    SynchronizeType: 2
     Name: Dead
   m_SynchronizeLayers:
   - SynchronizeType: 0
