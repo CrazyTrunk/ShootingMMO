@@ -32,21 +32,34 @@ public class WeaponChangerAdvanced : MonoBehaviour
     private string shooterName;
     private string gotShotName;
     [SerializeField] private float[] damageAmounts;
-
+    private GameObject choosePanel;
 
     private bool isDead = false;
 
     private int weaponNumber = 0;
 
     public bool IsDead { get => isDead; set => isDead = value; }
+    public int[] AmmoAmounts { get => ammoAmounts; set => ammoAmounts = value; }
 
+    private void Start()
+    {
+        choosePanel = GameObject.Find("ChooseColorPanel");
+        ammoAmountText = GameObject.Find("AmmoText").GetComponent<Text>();
+        AmmoAmounts[0] = 30;
+        AmmoAmounts[1] = 0;
+        AmmoAmounts[2] = 0;
+        ammoAmountText.text = AmmoAmounts[0].ToString();
+
+    }
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(0) && !IsDead)
+        if (Input.GetMouseButtonDown(0) && !IsDead && !choosePanel.activeInHierarchy)
         {
-            if (photonView.IsMine)
+            if (photonView.IsMine && AmmoAmounts[weaponNumber] > 0)
             {
+                AmmoAmounts[weaponNumber]--;
+                ammoAmountText.text = AmmoAmounts[weaponNumber].ToString();
                 displayColor.PlayGunShot(photonView.Owner.NickName, weaponNumber);
                 photonView.RPC(nameof(GunMuzzleFlash), RpcTarget.All);
                 Shoot();
@@ -62,7 +75,7 @@ public class WeaponChangerAdvanced : MonoBehaviour
             if (weaponNumber > weapons.Length - 1)
             {
                 weaponIcon.GetComponent<Image>().sprite = weaponIcons[0];
-                ammoAmountText.text = ammoAmounts[0].ToString();
+                ammoAmountText.text = AmmoAmounts[0].ToString();
                 weaponNumber = 0;
             }
             for (int i = 0; i < weapons.Length; i++)
@@ -71,13 +84,16 @@ public class WeaponChangerAdvanced : MonoBehaviour
             }
             weapons[weaponNumber].SetActive(true);
             weaponIcon.GetComponent<Image>().sprite = weaponIcons[weaponNumber];
-            ammoAmountText.text = ammoAmounts[weaponNumber].ToString();
+            ammoAmountText.text = AmmoAmounts[weaponNumber].ToString();
             leftHand.data.target = leftTargets[weaponNumber];
             rightHand.data.target = rightTargers[weaponNumber];
             rig.Build();
         }
     }
-
+    public void UpdatePickUpWeapon()
+    {
+        ammoAmountText.text = AmmoAmounts[weaponNumber].ToString();
+    }
     private void Shoot()
     {
         RaycastHit hit;

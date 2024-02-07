@@ -304,5 +304,6 @@ MonoBehaviour:
   rendererObj: {fileID: 9001709467847713000}
   otherRenderChildGun: {fileID: 0}
   colliderObj: {fileID: 2276306230968177778}
-  respawnTime: 5
+  respawnTime: 10
   weaponType: 0
+  ammoRefillAmt: 60

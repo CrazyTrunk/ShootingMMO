@@ -12,6 +12,7 @@ public class WeaponPickUp : MonoBehaviour
     [SerializeField] private Collider colliderObj;
     [SerializeField] float respawnTime = 5f;
     [SerializeField] private WeaponType weaponType;
+    [SerializeField] int ammoRefillAmt = 30;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -19,6 +20,8 @@ public class WeaponPickUp : MonoBehaviour
         {
             photonView.RPC(nameof(PlayPickupAudio), RpcTarget.All);
             photonView.RPC(nameof(TurnOffObject), RpcTarget.All);
+            other.GetComponent<WeaponChangerAdvanced>().AmmoAmounts[(int)weaponType] += ammoRefillAmt;
+            other.GetComponent<WeaponChangerAdvanced>().UpdatePickUpWeapon();
 
         }
     }
