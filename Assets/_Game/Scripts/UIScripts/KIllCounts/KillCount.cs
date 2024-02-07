@@ -27,7 +27,7 @@ public class KillCount : MonoBehaviour
             //update score tu list
             for (int i = 0; i < names.Length; i++)
             {
-                scoreList.Add(new KillScore(namesObject.Names[i].text, Random.Range(0, 100)));
+                scoreList.Add(new KillScore(namesObject.Names[i].text, namesObject.Kills[i]));
             }
             scoreList.Sort();
             //sau khi sort

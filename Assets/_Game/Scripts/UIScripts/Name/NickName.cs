@@ -13,9 +13,11 @@ public class NickName : MonoBehaviourPunCallbacks
     [SerializeField] private GameObject messagePanel;
     [SerializeField] private Text messageText;
     [SerializeField] private PhotonView photonViewObj;
+    [SerializeField] private int[] kills;
 
     public Text[] Names { get => names; set => names = value; }
     public Image[] HealthBars { get => healthBars; set => healthBars = value; }
+    public int[] Kills { get => kills; set => kills = value; }
 
     private void Start()
     {
@@ -44,7 +46,20 @@ public class NickName : MonoBehaviourPunCallbacks
     public void RunMessage(string win , string lose)
     {
         photonViewObj.RPC(nameof(DisplayMessage), RpcTarget.All, win, lose);
+        UpdateKills(win);
     }
+
+    private void UpdateKills(string win)
+    {
+        for (int i =0; i< names.Length; i++)
+        {
+            if(win == names[i].text)
+            {
+                Kills[i]++;
+            }
+        }
+    }
+
     [PunRPC]
     private void DisplayMessage(string win, string lose)
     {
