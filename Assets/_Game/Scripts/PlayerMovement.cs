@@ -7,7 +7,7 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private float moveSpeed = 3.5f;
-    [SerializeField] private float rotateSpeed= 100f;
+    [SerializeField] private float rotateSpeed = 100f;
     [SerializeField] private float jumpForce = 10f;
 
     [SerializeField] private Rigidbody rb;
@@ -19,24 +19,28 @@ public class PlayerMovement : MonoBehaviour
     private bool isRespawned = false;
     [SerializeField] private DisplayColor displayColor;
     [SerializeField] private PhotonView photonViewObj;
-
+    private GameObject respawnPanel;
     public bool IsDead { get => isDead; set => isDead = value; }
     private void Start()
     {
         startPos = transform.position;
+        respawnPanel = GameObject.Find("RespawnPanel");
     }
     private void FixedUpdate()
     {
-        Vector3 movement = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")).normalized;
-        Vector3 rotateY = new Vector3(0, Input.GetAxis("Mouse X") * rotateSpeed * Time.fixedDeltaTime, 0);
-        if(movement != Vector3.zero)
+        if (!isDead)
         {
-            rb.MoveRotation(rb.rotation * Quaternion.Euler(rotateY));
+            respawnPanel.SetActive(false);
+            Vector3 movement = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")).normalized;
+            Vector3 rotateY = new Vector3(0, Input.GetAxis("Mouse X") * rotateSpeed * Time.fixedDeltaTime, 0);
+            if (movement != Vector3.zero)
+            {
+                rb.MoveRotation(rb.rotation * Quaternion.Euler(rotateY));
+            }
+            rb.MovePosition(rb.position + Input.GetAxis("Vertical") * moveSpeed * Time.fixedDeltaTime * transform.forward + Input.GetAxis("Horizontal") * moveSpeed * Time.fixedDeltaTime * transform.right);
+            anim.SetFloat("BlendV", Input.GetAxis("Vertical"));
+            anim.SetFloat("BlendH", Input.GetAxis("Horizontal"));
         }
-        rb.MovePosition(rb.position + Input.GetAxis("Vertical") * moveSpeed * Time.fixedDeltaTime * transform.forward + Input.GetAxis("Horizontal") * moveSpeed * Time.fixedDeltaTime * transform.right);
-        anim.SetFloat("BlendV", Input.GetAxis("Vertical"));
-        anim.SetFloat("BlendH", Input.GetAxis("Horizontal"));
-
     }
     private void Update()
     {
@@ -49,9 +53,11 @@ public class PlayerMovement : MonoBehaviour
                 StartCoroutine(JumpAgain());
             }
         }
-        if(isDead && !isRespawned)
+        if (isDead && !isRespawned)
         {
             isRespawned = true;
+            respawnPanel.SetActive(true);
+            respawnPanel.GetComponent<RespawnCounter>().enabled = true;
             StartCoroutine(RespawnWaitTime());
         }
     }

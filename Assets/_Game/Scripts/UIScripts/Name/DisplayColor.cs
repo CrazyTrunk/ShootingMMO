@@ -97,6 +97,7 @@ public class DisplayColor : MonoBehaviourPunCallbacks
         photonViewObj.RPC(nameof(ResetForReplay),RpcTarget.AllBuffered, name);
     }
 
+    [PunRPC]
     private void ResetForReplay(string name)
     {
         for(int i = 0;i < namesObject.GetComponent<NickName>().Names.Length;i++)
