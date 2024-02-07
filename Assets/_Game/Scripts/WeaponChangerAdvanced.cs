@@ -87,15 +87,15 @@ public class WeaponChangerAdvanced : MonoBehaviour
         gameObject.layer = LayerMask.NameToLayer("Ignore Raycast");
         if (Physics.Raycast(ray, out hit, 500))
         {
+            shooterName = photonView.Owner.NickName;
             if (hit.transform.gameObject.GetComponent<PhotonView>() != null)
             {
                 gotShotName = hit.transform.gameObject.GetComponent<PhotonView>().Owner.NickName;
             }
             if (hit.transform.gameObject.GetComponent<DisplayColor>() != null)
             {
-                hit.transform.gameObject.GetComponent<DisplayColor>().DamageDeal(hit.transform.gameObject.GetComponent<PhotonView>().Owner.NickName, damageAmounts[weaponNumber]);
+                hit.transform.gameObject.GetComponent<DisplayColor>().DamageDeal(shooterName, hit.transform.gameObject.GetComponent<PhotonView>().Owner.NickName, damageAmounts[weaponNumber]);
             }
-            shooterName = photonView.Owner.NickName;
             Debug.Log($"{gotShotName} got shot by {shooterName}");
         }
         gameObject.layer = LayerMask.NameToLayer("Default");

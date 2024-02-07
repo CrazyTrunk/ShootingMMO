@@ -10,12 +10,16 @@ public class NickName : MonoBehaviourPunCallbacks
     [SerializeField] private Text[] names;
     [SerializeField] private Image[] healthBars;
     [SerializeField] private GameObject waitingPanel;
+    [SerializeField] private GameObject messagePanel;
+    [SerializeField] private Text messageText;
+    [SerializeField] private PhotonView photonViewObj;
 
     public Text[] Names { get => names; set => names = value; }
     public Image[] HealthBars { get => healthBars; set => healthBars = value; }
 
     private void Start()
     {
+        messagePanel.SetActive(false);
         for (int i = 0; i < names.Length; i++)
         {
             names[i].gameObject.SetActive(false);
@@ -36,6 +40,28 @@ public class NickName : MonoBehaviourPunCallbacks
     {
         waitingPanel.SetActive(false);
         RoomExit();
+    }
+    public void RunMessage(string win , string lose)
+    {
+        photonViewObj.RPC(nameof(DisplayMessage), RpcTarget.All, win, lose);
+    }
+    [PunRPC]
+    private void DisplayMessage(string win, string lose)
+    {
+        messagePanel.SetActive(true);
+        messageText.text = $"{win} killed {lose}";
+        StartCoroutine(SwitchOffMessage());
+    }
+
+    IEnumerator SwitchOffMessage()
+    {
+        yield return new WaitForSeconds(3f);
+        photonViewObj.RPC(nameof(MessageOff), RpcTarget.All);
+    }
+    [PunRPC]
+    private void MessageOff()
+    {
+        messagePanel.SetActive(false);
     }
 
     private void RoomExit()

@@ -12773,6 +12773,7 @@ MonoBehaviour:
   anim: {fileID: 8653250204544083379}
   playerMovement: {fileID: 1922687267968567116}
   weaponChangerAdvanced: {fileID: 3267407410618163194}
+  aimLookAt: {fileID: 1971108894353125068}
 --- !u!82 &7979797766435799462
 AudioSource:
   m_ObjectHideFlags: 0

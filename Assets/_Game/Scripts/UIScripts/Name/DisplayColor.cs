@@ -17,8 +17,11 @@ public class DisplayColor : MonoBehaviourPunCallbacks
 
     [Header("Animator")]
     [SerializeField] private Animator anim;
+
+    [Header("Component When IsDead Run")]
     [SerializeField] private PlayerMovement playerMovement;
     [SerializeField] private WeaponChangerAdvanced weaponChangerAdvanced;
+    [SerializeField] private AimLookAt aimLookAt;
 
 
     private GameObject namesObject;
@@ -68,9 +71,9 @@ public class DisplayColor : MonoBehaviourPunCallbacks
             }
         }
     }
-    public void DamageDeal(string name, float damageAmt)
+    public void DamageDeal(string shooterName, string name, float damageAmt)
     {
-        photonViewObj.RPC(nameof(DealDamage), RpcTarget.AllBuffered, name, damageAmt);
+        photonViewObj.RPC(nameof(DealDamage), RpcTarget.AllBuffered, shooterName, name, damageAmt);
     }
 
 
@@ -121,7 +124,7 @@ public class DisplayColor : MonoBehaviourPunCallbacks
 
     [PunRPC]
 
-    private void DealDamage(string name, float dmgAmount)
+    private void DealDamage(string shooterName, string name, float dmgAmount)
     {
         for (int i = 0; i < namesObject.GetComponent<NickName>().Names.Length; i++)
         {
@@ -134,10 +137,12 @@ public class DisplayColor : MonoBehaviourPunCallbacks
                 }
                 else
                 {
-                    namesObject.GetComponent<NickName>().HealthBars[i].GetComponent<Image>().fillAmount = 0;
                     anim.SetBool("Dead", true);
+                    namesObject.GetComponent<NickName>().HealthBars[i].GetComponent<Image>().fillAmount = 0;
                     playerMovement.IsDead = true;
                     weaponChangerAdvanced.IsDead = true;
+                    aimLookAt.IsDead = true;
+                    namesObject.GetComponent<NickName>().RunMessage(shooterName, name);
                 }
 
             }

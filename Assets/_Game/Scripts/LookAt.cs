@@ -9,12 +9,11 @@ public class LookAt : MonoBehaviour
     private Vector3 worldPos;
     private Vector3 screenPos;
     // Update is called once per frame
-    [SerializeField]private GameObject crosshair;
-
+    [SerializeField] private GameObject crosshair;
     void FixedUpdate()
     {
         screenPos = Input.mousePosition;
-        screenPos.z = 3f;
+        screenPos.z = 6f;
         worldPos = Camera.main.ScreenToWorldPoint(screenPos);
         transform.position = worldPos;
         crosshair.transform.position = Input.mousePosition;
