@@ -21,6 +21,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private PhotonView photonViewObj;
     private GameObject respawnPanel;
     public bool IsDead { get => isDead; set => isDead = value; }
+    [HideInInspector]
+    public bool gameOver = false;
     private void Start()
     {
         startPos = transform.position;
@@ -53,7 +55,7 @@ public class PlayerMovement : MonoBehaviour
                 StartCoroutine(JumpAgain());
             }
         }
-        if (isDead && !isRespawned)
+        if (isDead && !isRespawned && gameOver == false)
         {
             isRespawned = true;
             respawnPanel.SetActive(true);

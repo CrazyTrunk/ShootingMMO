@@ -26,8 +26,20 @@ public class DisplayColor : MonoBehaviourPunCallbacks
 
     private GameObject namesObject;
     private GameObject wairForPlayers;
+    private GameObject timeObject;
 
     public int[] ViewIds { get => viewIds; set => viewIds = value; }
+
+
+
+    private void Start()
+    {
+        namesObject = GameObject.Find("NameBackground");
+        timeObject = GameObject.Find("TimePanel");
+        wairForPlayers = GameObject.Find("WaitingPanel");
+        InvokeRepeating(nameof(CheckTime), 1, 1);
+
+    }
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -43,7 +55,17 @@ public class DisplayColor : MonoBehaviourPunCallbacks
             StartCoroutine(BackToIdle());
         }
     }
-
+    private void CheckTime()
+    {
+        if (timeObject.GetComponent<TimeCounter>().TimeStop)
+        {
+            playerMovement.IsDead = true;
+            playerMovement.gameOver = true;
+            weaponChangerAdvanced.IsDead = true;
+            aimLookAt.IsDead = true;
+            gameObject.layer = LayerMask.NameToLayer("Ignore Raycast");
+        }
+    }
     IEnumerator BackToIdle()
     {
         yield return new WaitForSeconds(0.05f);
@@ -83,11 +105,7 @@ public class DisplayColor : MonoBehaviourPunCallbacks
     }
 
 
-    private void Start()
-    {
-        namesObject = GameObject.Find("NameBackground");
-        wairForPlayers = GameObject.Find("WaitingPanel");
-    }
+
     public void ChooseColor()
     {
         photonViewObj.RPC(nameof(AssignColor), RpcTarget.AllBuffered);

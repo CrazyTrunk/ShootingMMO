@@ -10,6 +10,11 @@ public class TimeCounter : MonoBehaviour
 
     [SerializeField] private int minutes = 4;
     [SerializeField] private int seconds = 59;
+    [SerializeField] private KillCount killCount;
+    private bool timeStop = false;
+
+    public bool TimeStop { get => timeStop; set => timeStop = value; }
+
     public void BeginTimer()
     {
         
@@ -43,6 +48,12 @@ public class TimeCounter : MonoBehaviour
             seconds = 59;
             secondsText.text = seconds.ToString();
 
+        }
+        if(seconds == 0 && minutes <= 0)
+        {
+            killCount.countDown = false;
+            killCount.TimeOver();
+            TimeStop = true;
         }
     }
 }

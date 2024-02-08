@@ -10,17 +10,22 @@ public class KillCount : MonoBehaviour
     public Text[] killAmounts;
     [SerializeField] private GameObject killCountPanel;
     [SerializeField] private NickName namesObject;
+    [SerializeField] private GameObject winnerPanel;
+    [SerializeField] private Text winnerText;
+
     // Start is called before the first frame update
+    public bool countDown;
     void Start()
     {
         killCountPanel.SetActive(false);
+        winnerPanel.SetActive(false);
     }
 
     // Update is called once per frame
     void Update()
     {
         scoreList.Clear();
-        if (Input.GetKeyDown(KeyCode.Tab))
+        if (Input.GetKeyDown(KeyCode.Tab) && countDown)
         {
 
             killCountPanel.SetActive(true);
@@ -41,6 +46,24 @@ public class KillCount : MonoBehaviour
         {
             killCountPanel.SetActive(false);
 
+        }
+    }
+    public void TimeOver()
+    {
+        killCountPanel.SetActive(true);
+        winnerPanel.SetActive(true);
+        //update score tu list
+        for (int i = 0; i < names.Length; i++)
+        {
+            scoreList.Add(new KillScore(namesObject.Names[i].text, namesObject.Kills[i]));
+        }
+        scoreList.Sort();
+        winnerText.text = scoreList[0].playerName;
+        //sau khi sort
+        for (int i = 0; i < names.Length; i++)
+        {
+            names[i].text = scoreList[i].playerName;
+            killAmounts[i].text = scoreList[i].playerKills.ToString();
         }
     }
 }

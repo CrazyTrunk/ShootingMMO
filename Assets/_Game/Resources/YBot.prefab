@@ -12510,6 +12510,7 @@ MonoBehaviour:
   anim: {fileID: 8653250204544083379}
   displayColor: {fileID: 3139584295112957396}
   photonViewObj: {fileID: -5128884831829719060}
+  gameOver: 0
 --- !u!114 &5627625306074730939
 MonoBehaviour:
   m_ObjectHideFlags: 0
