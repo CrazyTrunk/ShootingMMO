@@ -12777,6 +12777,20 @@ MonoBehaviour:
   playerMovement: {fileID: 1922687267968567116}
   weaponChangerAdvanced: {fileID: 3267407410618163194}
   aimLookAt: {fileID: 1971108894353125068}
+  teamColors:
+  - serializedVersion: 2
+    rgba: 1184436
+  - serializedVersion: 2
+    rgba: 1184436
+  - serializedVersion: 2
+    rgba: 1184436
+  - serializedVersion: 2
+    rgba: 8259347
+  - serializedVersion: 2
+    rgba: 8259347
+  - serializedVersion: 2
+    rgba: 8259347
+  gameMode: 0
 --- !u!82 &7979797766435799462
 AudioSource:
   m_ObjectHideFlags: 0

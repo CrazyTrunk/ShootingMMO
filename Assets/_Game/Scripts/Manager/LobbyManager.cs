@@ -22,7 +22,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     }
     public void JoinGameKillCount()
     {
-        levelName = "Floor layout";
+        levelName = "KillCount";
         PhotonNetwork.JoinLobby(killCount);
     }
     public void JoinGameTeamBattle()

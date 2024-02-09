@@ -14,10 +14,11 @@ public class NickName : MonoBehaviourPunCallbacks
     [SerializeField] private Text messageText;
     [SerializeField] private PhotonView photonViewObj;
     [SerializeField] private int[] kills;
-
+    [SerializeField] private GamePlayMode gameMode;
     public Text[] Names { get => names; set => names = value; }
     public Image[] HealthBars { get => healthBars; set => healthBars = value; }
     public int[] Kills { get => kills; set => kills = value; }
+    public GamePlayMode GameMode { get => gameMode; set => gameMode = value; }
 
     private void Start()
     {

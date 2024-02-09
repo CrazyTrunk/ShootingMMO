@@ -10,6 +10,7 @@ public class DisplayColor : MonoBehaviourPunCallbacks
     [SerializeField] private int[] buttonNumbers;
     [SerializeField] private int[] viewIds;
     [SerializeField] private Color32[] colors;
+
     [SerializeField] private PhotonView photonViewObj;
     [SerializeField] private Renderer rendererColor;
     [SerializeField] private AudioClip[] gunshotSounds;
@@ -23,6 +24,9 @@ public class DisplayColor : MonoBehaviourPunCallbacks
     [SerializeField] private WeaponChangerAdvanced weaponChangerAdvanced;
     [SerializeField] private AimLookAt aimLookAt;
 
+    [Header("Game Mode")]
+    [SerializeField] private Color32[] teamColors;
+    private GamePlayMode gameMode;
 
     private GameObject namesObject;
     private GameObject wairForPlayers;
@@ -38,7 +42,7 @@ public class DisplayColor : MonoBehaviourPunCallbacks
         timeObject = GameObject.Find("TimePanel");
         wairForPlayers = GameObject.Find("WaitingPanel");
         InvokeRepeating(nameof(CheckTime), 1, 1);
-
+        gameMode = namesObject.GetComponent<NickName>().GameMode;
     }
     private void Update()
     {
@@ -112,15 +116,15 @@ public class DisplayColor : MonoBehaviourPunCallbacks
     }
     public void Respawn(string name)
     {
-        photonViewObj.RPC(nameof(ResetForReplay),RpcTarget.AllBuffered, name);
+        photonViewObj.RPC(nameof(ResetForReplay), RpcTarget.AllBuffered, name);
     }
 
     [PunRPC]
     private void ResetForReplay(string name)
     {
-        for(int i = 0;i < namesObject.GetComponent<NickName>().Names.Length;i++)
+        for (int i = 0; i < namesObject.GetComponent<NickName>().Names.Length; i++)
         {
-            if(name == namesObject.GetComponent<NickName>().Names[i].text)
+            if (name == namesObject.GetComponent<NickName>().Names[i].text)
             {
                 anim.SetBool("Dead", false);
                 playerMovement.IsDead = false;
@@ -137,14 +141,29 @@ public class DisplayColor : MonoBehaviourPunCallbacks
     {
         for (int i = 0; i < ViewIds.Length; i++)
         {
-            if (photonViewObj.ViewID == ViewIds[i])
+            if (gameMode == GamePlayMode.KILL_COUNT)
             {
-                rendererColor.material.color = colors[i];
-                namesObject.GetComponent<NickName>().Names[i].gameObject.SetActive(true);
-                namesObject.GetComponent<NickName>().HealthBars[i].gameObject.SetActive(true);
-                namesObject.GetComponent<NickName>().Names[i].text = photonViewObj.Owner.NickName;
+                if (photonViewObj.ViewID == ViewIds[i])
+                {
+                    rendererColor.material.color = colors[i];
+                    namesObject.GetComponent<NickName>().Names[i].gameObject.SetActive(true);
+                    namesObject.GetComponent<NickName>().HealthBars[i].gameObject.SetActive(true);
+                    namesObject.GetComponent<NickName>().Names[i].text = photonViewObj.Owner.NickName;
 
+                }
             }
+            else if (gameMode == GamePlayMode.TEAM_BATTLE)
+            {
+                if (photonViewObj.ViewID == ViewIds[i])
+                {
+                    rendererColor.material.color = teamColors[i];
+                    namesObject.GetComponent<NickName>().Names[i].gameObject.SetActive(true);
+                    namesObject.GetComponent<NickName>().HealthBars[i].gameObject.SetActive(true);
+                    namesObject.GetComponent<NickName>().Names[i].text = photonViewObj.Owner.NickName;
+
+                }
+            }
+
         }
     }
     [PunRPC]

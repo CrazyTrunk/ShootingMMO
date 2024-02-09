@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_Game/Scenes/Floor layout.unity
     guid: 3f04d49d9fc035146931c7f968bd76b8
+  - enabled: 1
+    path: Assets/_Game/Scenes/KillCount.unity
+    guid: d318a2b7d75b1da4bb81ad56b26e19a6
   m_configObjects: {}
