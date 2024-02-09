@@ -10,14 +10,16 @@ public class TimeCounter : MonoBehaviour
 
     [SerializeField] private int minutes = 4;
     [SerializeField] private int seconds = 59;
-    [SerializeField] private KillCount killCount;
+    [SerializeField] private NickName nickName;
+    [SerializeField] private Canvas canvas;
+
     private bool timeStop = false;
 
     public bool TimeStop { get => timeStop; set => timeStop = value; }
 
     public void BeginTimer()
     {
-        
+
         minutesText.text = minutes.ToString();
         secondsText.text = seconds.ToString();
         photonView.RPC(nameof(Count), RpcTarget.AllBuffered);
@@ -49,11 +51,21 @@ public class TimeCounter : MonoBehaviour
             secondsText.text = seconds.ToString();
 
         }
-        if(seconds == 0 && minutes <= 0)
+        if (seconds == 0 && minutes <= 0)
         {
-            killCount.countDown = false;
-            killCount.TimeOver();
+            if (nickName.GameMode == GamePlayMode.KILL_COUNT)
+            {
+                canvas.GetComponent<KillCount>().countDown = false;
+                canvas.GetComponent<KillCount>().TimeOver();
+            }
+            else if (nickName.GameMode == GamePlayMode.TEAM_BATTLE)
+            {
+
+                canvas.GetComponent<TeamBattleCount>().countDown = false;
+                canvas.GetComponent<TeamBattleCount>().TimeOver();
+            }
             TimeStop = true;
+
         }
     }
 }
