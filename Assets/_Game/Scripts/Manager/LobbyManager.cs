@@ -27,14 +27,14 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     }
     public void JoinGameTeamBattle()
     {
-        levelName = "Floor layout";
+        levelName = "TeamBattle";
 
         PhotonNetwork.JoinLobby(teamBattle);
 
     }
     public void JoinGameNoRespawn()
     {
-        levelName = "Floor layout";
+        levelName = "Survival";
 
         PhotonNetwork.JoinLobby(noRespawn);
     }

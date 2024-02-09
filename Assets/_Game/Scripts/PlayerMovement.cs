@@ -20,9 +20,15 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private DisplayColor displayColor;
     [SerializeField] private PhotonView photonViewObj;
     private GameObject respawnPanel;
-    public bool IsDead { get => isDead; set => isDead = value; }
+
+
     [HideInInspector]
     public bool gameOver = false;
+
+    private GamePlayMode gamePlayMode;
+
+    public bool IsDead { get => isDead; set => isDead = value; }
+    public GamePlayMode GamePlayMode { get => gamePlayMode; set => gamePlayMode = value; }
     private void Start()
     {
         startPos = transform.position;
@@ -55,12 +61,17 @@ public class PlayerMovement : MonoBehaviour
                 StartCoroutine(JumpAgain());
             }
         }
-        if (isDead && !isRespawned && gameOver == false)
+        if (isDead && !isRespawned && gameOver == false && gamePlayMode != GamePlayMode.SURVIVAL)
         {
             isRespawned = true;
             respawnPanel.SetActive(true);
             respawnPanel.GetComponent<RespawnCounter>().enabled = true;
             StartCoroutine(RespawnWaitTime());
+        }
+        else if (isDead && !isRespawned && gameOver == false && gamePlayMode == GamePlayMode.SURVIVAL)
+        {
+            isRespawned = true;
+            GetComponent<DisplayColor>().NoSpawnAndExit();
         }
     }
 

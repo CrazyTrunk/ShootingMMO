@@ -15,13 +15,17 @@ public class NickName : MonoBehaviourPunCallbacks
     [SerializeField] private PhotonView photonViewObj;
     [SerializeField] private int[] kills;
     [SerializeField] private GamePlayMode gameMode;
+    [SerializeField] private GameObject eliminationPanel;
+
     public Text[] Names { get => names; set => names = value; }
     public Image[] HealthBars { get => healthBars; set => healthBars = value; }
     public int[] Kills { get => kills; set => kills = value; }
     public GamePlayMode GameMode { get => gameMode; set => gameMode = value; }
+    public GameObject EliminationPanel { get => eliminationPanel; set => eliminationPanel = value; }
 
     private void Start()
     {
+        EliminationPanel.SetActive(false);
         messagePanel.SetActive(false);
         for (int i = 0; i < names.Length; i++)
         {

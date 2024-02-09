@@ -31,7 +31,6 @@ public class DisplayColor : MonoBehaviourPunCallbacks
     private GameObject namesObject;
     private GameObject wairForPlayers;
     private GameObject timeObject;
-
     public int[] ViewIds { get => viewIds; set => viewIds = value; }
 
 
@@ -43,6 +42,7 @@ public class DisplayColor : MonoBehaviourPunCallbacks
         wairForPlayers = GameObject.Find("WaitingPanel");
         InvokeRepeating(nameof(CheckTime), 1, 1);
         gameMode = namesObject.GetComponent<NickName>().GameMode;
+        GetComponent<PlayerMovement>().GamePlayMode = gameMode;
     }
     private void Update()
     {
@@ -59,6 +59,15 @@ public class DisplayColor : MonoBehaviourPunCallbacks
             StartCoroutine(BackToIdle());
         }
     }
+
+    public void NoSpawnAndExit()
+    {
+        namesObject.GetComponent<NickName>().EliminationPanel.SetActive(true);
+        StartCoroutine(WaitTillExit());
+    }
+
+
+
     private void CheckTime()
     {
         if (timeObject.GetComponent<TimeCounter>().TimeStop)
@@ -141,7 +150,7 @@ public class DisplayColor : MonoBehaviourPunCallbacks
     {
         for (int i = 0; i < ViewIds.Length; i++)
         {
-            if (gameMode == GamePlayMode.KILL_COUNT)
+            if (gameMode == GamePlayMode.KILL_COUNT || gameMode == GamePlayMode.SURVIVAL)
             {
                 if (photonViewObj.ViewID == ViewIds[i])
                 {
@@ -214,5 +223,11 @@ public class DisplayColor : MonoBehaviourPunCallbacks
         namesObject.GetComponent<NickName>().Leaving();
         Cursor.visible = true;
         PhotonNetwork.LeaveRoom();
+    }
+    IEnumerator WaitTillExit()
+    {
+       yield return new WaitForSeconds(3f);
+        RemoveData();
+        RoomExit();
     }
 }
