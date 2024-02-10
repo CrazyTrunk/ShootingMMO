@@ -33,39 +33,48 @@ public class TimeCounter : MonoBehaviour
 
     private void CountDown()
     {
-        if (seconds > 10)
+        if (nickName.GameMode == GamePlayMode.SURVIVAL)
         {
-            seconds -= 1;
-            secondsText.text = seconds.ToString();
+            minutesText.text = "";
+            secondsText.text = "";
         }
-        else if (seconds > 0 && seconds < 11)
+        else
         {
-            seconds -= 1;
-            secondsText.text = "0" + seconds.ToString();
-        }
-        else if (seconds == 0 && minutes > 0)
-        {
-            secondsText.text = "0" + seconds.ToString();
-            minutes -= 1;
-            seconds = 59;
-            secondsText.text = seconds.ToString();
-
-        }
-        if (seconds == 0 && minutes <= 0)
-        {
-            if (nickName.GameMode == GamePlayMode.KILL_COUNT)
+            if (seconds > 10)
             {
-                canvas.GetComponent<KillCount>().countDown = false;
-                canvas.GetComponent<KillCount>().TimeOver();
+                seconds -= 1;
+                secondsText.text = seconds.ToString();
             }
-            else if (nickName.GameMode == GamePlayMode.TEAM_BATTLE)
+            else if (seconds > 0 && seconds < 11)
             {
-
-                canvas.GetComponent<TeamBattleCount>().countDown = false;
-                canvas.GetComponent<TeamBattleCount>().TimeOver();
+                seconds -= 1;
+                secondsText.text = "0" + seconds.ToString();
             }
-            TimeStop = true;
+            else if (seconds == 0 && minutes > 0)
+            {
+                secondsText.text = "0" + seconds.ToString();
+                minutes -= 1;
+                seconds = 59;
+                secondsText.text = seconds.ToString();
 
+            }
+            if (seconds == 0 && minutes <= 0)
+            {
+                if (nickName.GameMode == GamePlayMode.KILL_COUNT)
+                {
+                    canvas.GetComponent<KillCount>().countDown = false;
+                    canvas.GetComponent<KillCount>().TimeOver();
+                }
+                else if (nickName.GameMode == GamePlayMode.TEAM_BATTLE)
+                {
+
+                    canvas.GetComponent<TeamBattleCount>().countDown = false;
+                    canvas.GetComponent<TeamBattleCount>().TimeOver();
+                }
+                TimeStop = true;
+
+            }
         }
+
     }
 }

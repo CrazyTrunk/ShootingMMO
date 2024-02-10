@@ -26,13 +26,15 @@ public class PlayerMovement : MonoBehaviour
     public bool gameOver = false;
 
     private GamePlayMode gamePlayMode;
-
+    private GameObject Canvas;
+    private bool startChecking = false;
     public bool IsDead { get => isDead; set => isDead = value; }
     public GamePlayMode GamePlayMode { get => gamePlayMode; set => gamePlayMode = value; }
     private void Start()
     {
         startPos = transform.position;
         respawnPanel = GameObject.Find("RespawnPanel");
+        Canvas = GameObject.Find("Canvas");
     }
     private void FixedUpdate()
     {
@@ -73,6 +75,17 @@ public class PlayerMovement : MonoBehaviour
             isRespawned = true;
             GetComponent<DisplayColor>().NoSpawnAndExit();
         }
+        if (PhotonNetwork.CurrentRoom.PlayerCount > 1 && !startChecking)
+        {
+            startChecking = true;
+            InvokeRepeating(nameof(CheckingWinner), 3, 3);
+        }
+    }
+
+    private void CheckingWinner()
+    {
+        if(PhotonNetwork.CurrentRoom.PlayerCount == 1 && gamePlayMode == GamePlayMode.SURVIVAL)
+        Canvas.GetComponent<SurvivalCount>().NoRespawnWinner(photonViewObj.Owner.NickName);
     }
 
     IEnumerator RespawnWaitTime()

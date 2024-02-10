@@ -25,7 +25,10 @@ public class NickName : MonoBehaviourPunCallbacks
 
     private void Start()
     {
-        EliminationPanel.SetActive(false);
+        if(gameMode == GamePlayMode.SURVIVAL)
+        {
+            EliminationPanel.SetActive(false);
+        }
         messagePanel.SetActive(false);
         for (int i = 0; i < names.Length; i++)
         {
