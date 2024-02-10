@@ -12790,7 +12790,6 @@ MonoBehaviour:
     rgba: 8259347
   - serializedVersion: 2
     rgba: 8259347
-  gameMode: 0
 --- !u!82 &7979797766435799462
 AudioSource:
   m_ObjectHideFlags: 0
