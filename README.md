@@ -1,8 +1,6 @@
 # MMO Shooter(Build)
-EXE:
-[[https://drive.google.com/file/d/1qICdxzNphpki_PkSrNNTyGRJZ9vZQ4P6/view?usp=sharing
-](https://drive.google.com/file/d/1q9ZORbCY12E8ABWpT-ECGgp61kcKGfyv/view?usp=sharing)
-](https://drive.google.com/file/d/1deT2SoDDt9bOmYPkfKbR1KbX9nWFjAe-/view?usp=sharing)
+EXE: https://drive.google.com/file/d/1deT2SoDDt9bOmYPkfKbR1KbX9nWFjAe-/view?usp=sharing
+
 ## Description
 
 Một Game bắn súng hướng đến nhiều người chơi, max 6 players với ba chế độ đấu đơn, đấu đội và sống sót, có thể nhặt vũ khí để thêm đạn, có 3 loại súng mỗi loại sẽ gây damage khác nhau.
